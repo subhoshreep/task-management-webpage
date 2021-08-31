@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %} Home {% endblock title %}
+{% block body %}    
+    <div class="container">
+        <h2>Welcome</h2>
+        <form action="/" method="POST">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">TODO TASK</label>
+              <input type="text" class="form-control" name="title" id="title" aria-describedby="emailHelp">
+             
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">TODO Description</label>
+              <input type="text" class="form-control"  name="desc" id="desc">
+            </div>
+        
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+    
+    <div class="container my-3">
+        <h2>To do table</h2>
+                {% if alltodo|length==0 %} 
+                    <div class="alert alert-danger" role="alert">
+                         No record found!Please add your tasks.
+                    </div>
+                    {% else %}
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">SNo.</th>
+                                    <th scope="col">First</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>    
+                                {% for todo in alltodo  %}
+                                    <tr>
+                                        <th scope="row">{{loop.index}}</th>
+                                        <td>{{todo.title}}</td>
+                                        <td>{{todo.desc}}</td>
+                                        <td>{{todo.date_created}}</td>
+                                        <td>
+                                            <a href="/update/{{todo.sno}}" type="button" class="btn btn-danger btn-sm mx-2">Update </button>
+                                            <a href="/delete/{{todo.sno}}" type="button" class="btn btn-danger btn-sm mx-2">Delete</button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                {% endif %}
+           
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-eMNCOe7tC1doHpGoWe/6oMVemdAVTMs2xqW4mwXrXsW0L84Iytr2wi5v2QjrP/xp" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js" integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/" crossorigin="anonymous"></script>
+    -->
+{% endblock body %}
